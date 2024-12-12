@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .review-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .review-container h1 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .review-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .review-container input[type="text"],
+        .review-container textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .review-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .review-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="review-container">
+        <h1>Submit Your Review</h1>
+        <form action="/rate_service/{{ service_request.id }}" method="post">
+            <label for="service_request_id">Service Request ID:</label>
+            <input type="text" id="service_request_id" name="service_request_id" value="{{ service_request.id }}"
+                required readonly>
+
+            <label for="customer_id">Customer ID:</label>
+            <input type="text" id="customer_id" name="customer_id" value="{{ service_request.customer_id }}" required
+                readonly>
+
+            <label for="rating">Rating (1-5):</label>
+            <input type="number" id="rating" name="rating" max="5" min="1" required>
+
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" rows="4" required></textarea>
+
+            <input type="hidden" id="date_created" name="date_created" value="<?= date('Y-m-d H:i:s') ?>">
+
+            <button type="submit">Submit Review</button>
+        </form>
+    </div>
+</body>
+
+
+</html>

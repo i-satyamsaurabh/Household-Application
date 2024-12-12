@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Lobster&display=swap"
+        rel="stylesheet">
+    <style>
+        .dashboard-container {
+            margin: 20px;
+            font-family: "Libre Baskerville", serif;
+            color: rgb(33, 49, 126)
+        }
+
+        .nav-link {
+            margin-right: 15px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .chart-large {
+            width: 70%;
+            height: 400px
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
+        style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: bolder;">
+        <a class="navbar-brand" href="{{ url_for('admin_dashboard') }}"><b>ADMIN DASHBOARD</b></a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#services">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('booking_admin') }}">Booking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#summarySection">Summary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+            <form class="d-flex ms-auto" action="{{ url_for('search_services_admin') }}" method="GET">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search Services"
+                    aria-label="Search" value="{{ query }}">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="dashboard-container">
+
+        <div class="card">
+            <div class="card-body" style="margin-top: 50px;">
+                <h5 class="section-title">►Create New Service Category</h5>
+                <form action="{{ url_for('create_service_category') }}" method="POST">
+                    <div class="form-group">
+                        <label for="name">Service Category Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter category name"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3"
+                            placeholder="Service description" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Category</button>
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <h5 class="section-title">►Create New Service</h5>
+            <form action="{{ url_for('create_service') }}" method="POST">
+                <div class="form-group">
+                    <label for="service_category">Service Category</label>
+                    <select class="form-control" id="service_category" name="service_category" required>
+                        <option value="">Select Category</option>
+                        {% for i in category %}
+                        <option value="{{ i.id }}" {% if selected_category==i.name %}selected{% endif %}>{{ i.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Service Type Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter service type name"
+                        required>
+                </div>
+
+                <!-- Base Price -->
+                <div class="form-group">
+                    <label for="price">Base Price in &#8377;</label>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter base price"
+                        required>
+                </div>
+
+                <!-- Time Required -->
+                <div class="form-group">
+                    <label for="time_required">Average Completion Time (in minutes)</label>
+                    <input type="number" class="form-control" id="time_required" name="time_required"
+                        placeholder="Enter time in minutes" required>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3"
+                        placeholder="Service description" required></textarea>
+                </div>
+
+                <!-- Professional Selection -->
+                <div class="form-group">
+                    <label for="professional_id">Select Professional</label>
+                    <select class="form-control" id="professional_id" name="professional_id" required>
+                        <option value="">Select Professional</option>
+                        {% for prof in professionals %}
+                        <option value="{{ prof.id }}">{{ prof.name }} - {{ prof.service_type_id }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Add Service Type</button>
+                <button type="button" class="btn btn-secondary">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Services Management Section -->
+    <div id="services" class="card mt-4">
+        <div class="card-body">
+            <h5 class="section-title">►Services</h5>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Service ID</th>
+                        <th>Service Name</th>
+                        <th>Base Price per Hour </th>
+                        <th>Professional ID </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in services %}
+                    <tr>
+                        <td>SR00{{ i.id }}</td>
+                        <td>{{ i.name }}</td>
+                        <td> &#8377 {{ i.price }}</td>
+                        <td>PR00{{ i.professional_id }}</td>
+                        <td>
+                            <a href="/edit_service/{{ i.id }}">
+                                <button type="button" class="btn btn-warning button-round">Edit</button>
+                            </a>
+                            <a href="/delete_service/{{ i.id }}">
+                                <button type="button" class="btn btn-danger button-round">Delete</button>
+                            </a>
+
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Professionals Management Section -->
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="section-title">►Professionals</h5>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Professional Name</th>
+                        <th> Professional ID</th>
+                        <th>Service Type</th>
+                        <th>Experience </th>
+                        <th>Pincode</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic rows for professionals -->
+                    {% for professional in professionals %}
+                    <tr>
+                        <td>{{ professional.name }}</td>
+                        <td>PR00{{ professional.id }}</td>
+                        <td>{{ professional.service_type_id }}</td>
+                        <td>{{ professional.experience }} years</td>
+                        <td>{{ professional.pincode }}</td>
+                        <td>
+                            <a href="/delete_professional/{{ professional.id }}">
+                                <button type="button" class="btn btn-danger button-round">Delete
+                                    Professional</button></a>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Users Management Section -->
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="section-title">►Customers</h5>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th> Customer ID</th>
+                        <th>Email</th>
+                        <th>Pincode</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in customers %}
+                    <tr>
+                        <td>{{ i.name }}</td>
+                        <td>C00{{ i.id }}</td>
+                        <td>{{ i.email }}</td>
+                        <td>{{ i.pincode }}</td>
+                        <td>
+                            <a href="/delete_customers/{{ i.id }}">
+                                <button type="button" class="btn btn-black btn-danger">Delete
+                                    Customer</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <!-- Service Requests Section -->
+    <div id="booking" class="card mt-4">
+        <div class="card-body">
+            <h5 class="section-title">►Service Requests</h5>
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Service ID</th>
+                        <th>Service Name</th>
+                        <th>Professional ID</th>
+                        <th>Date of Request</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic rows for service requests -->
+                    {% for request in service_requests %}
+                    <tr>
+                        <td>C00{{ request.customer_id }}</td>
+                        <td>SR00{{ request.service_id }}</td>
+                        <td>{{ request.service_name }}</td>
+                        <td>PR00{{ request.professional_id }}</td>
+                        <td>{{ request.date_of_request.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ request.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="summarySection" class="card mt-4">
+        <div class="card-body">
+            <h5 class="section-title">►Summary</h5>
+            <div class="chart-container">
+                <!-- Pie Chart for Service Requests -->
+                <div style="width: 60%;">
+                    <h6>Service Requests Summary</h6>
+                    <canvas id="serviceRequestsChart" class="chart-large"></canvas>
+                </div>
+                <!-- Bar Chart for User Summary -->
+                <div style="margin-left: 0%;">
+                    <h6>User Summary</h6>
+                    <canvas id="userSummaryChart" class="chart-large"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Section with Charts -->
+
+    </div>
+
+    <!-- Bootstrap and Chart.js JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Pie Chart for Service Requests
+        var ctx1 = document.getElementById('serviceRequestsChart').getContext('2d');
+        var serviceRequestsChart = new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: ['Completed', 'In Process', 'Declined'],
+                datasets: [{
+                    label: 'Service Requests',
+                    data: [{{ completed_requests }}, {{ in_process_requests }}, {{ declined_requests }}],
+        backgroundColor: ['skyblue', '#ffc107', '#28a745']
+        }]
+        }
+    });
+
+        // Bar Chart for User Summary
+        var ctx2 = document.getElementById('userSummaryChart').getContext('2d');
+        var userSummaryChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['Total Users', 'Customers', 'Professionals'],
+                datasets: [{
+                    label: 'Users',
+                    data: [{{ total_users }}, {{ total_customers }}, {{ total_professionals }}],
+        backgroundColor: ['#007bff', '#17a2b8', '#28a745']
+            }]
+        }
+    });
+    </script>
+    <footer class="mt-5 py-3 bg-light">
+        <div class="container text-center">
+            <p>&copy; 2024 Household Services by Satyam Saurabh. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

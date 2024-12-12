@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+
+<body>
+    {% if search_type == 'customers' or search_type == 'professionals' %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.name }}</td>
+                <td>{{ result.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif search_type == 'service_requests' %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Request Details</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.details }}</td>
+                <td>{{ result.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif search_type == 'services' %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Base Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.name }}</td>
+                <td>{{ result.price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+</body>
+
+</html>

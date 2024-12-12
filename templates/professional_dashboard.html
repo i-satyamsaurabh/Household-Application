@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Lobster&display=swap"
+        rel="stylesheet">
+</head>
+<style>
+    body {
+        font-family: 'Libre Baskerville', serif;
+        margin: 0;
+    }
+</style>
+
+<body>
+    <!-- Header Section -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="/" style="font-weight: bolder; font-size: x-large;">Professional Dashboard</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto" style="font-weight: bolder; f">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#myservice">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#summary">Summary</a></li>
+                <li class="nav-item"><a class="nav-link" href="#profile">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content with fluid container to reduce side margins -->
+    <div class="container-fluid mt-5">
+        <!-- Today's Services Section -->
+        <div class="card mb-4" style="margin-top: 105px;">
+            <div class="card-header">
+                <h4>Available Service Requests</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-info">
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Date of Request</th>
+                            <th>Service Name</th>
+                            <th>Area Pincode</th>
+                            <th>Customer ID</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in available_requests %}
+                        <tr>
+                            <td>RQ0{{ request.id }}</td>
+                            <td>{{ request.date_of_request.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>{{ request.service_name }}</td>
+                            <td>{{ request.customer.pincode }}</td>
+                            <td>C00{{ request.customer_id }}</td>
+                            <td>{{ request.status }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{{ url_for('view_service_request', request_id=request.id) }}"
+                                        class="btn btn-sm btn-info">View</a>
+                                    <a href="{{ url_for('accept_service_request', request_id=request.id) }}"
+                                        class="btn btn-sm btn-warning">Accept</a>
+                                    <a href="{{ url_for('decline_service_request', request_id=request.id) }}"
+                                        class="btn btn-sm btn-danger">Decline</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7">No service history available</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- My Services Section -->
+    <div id="myservice" class="card mb-4">
+        <div class="card-header">
+            <h4>My Services</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Date of Request</th>
+                        <th>Service Name</th>
+                        <th>Area Pincode</th>
+                        <th>Customer ID</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service in my_services %}
+                    <tr>
+                        <td>RQ0{{ service.id }}</td>
+                        <td>{{ service.date_of_request.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ service.service_name }}</td>
+                        <td>{{ service.customer.pincode }}</td>
+                        <td>C00{{ service.customer_id }}</td>
+                        <td>{{ service.status }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">No accepted services</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Declined Service Requests</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Date of Request</th>
+                        <th>Service Name</th>
+                        <th>Area Pincode</th>
+                        <th>Customer ID</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in declined_requests %}
+                    <tr>
+                        <td>RQ0{{ request.id }}</td>
+                        <td>{{ request.date_of_request.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ request.service_name }}</td>
+                        <td>{{ request.customer.pincode }}</td>
+                        <td>C00{{ request.customer_id }}</td>
+                        <td><b>{{ request.status }}</b></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">No declined requests.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Summary Section with Charts -->
+
+    <div id="summary" class="card mb-4" style="width: 60%; margin-left:21% ;">
+        <div class="card-header">Service Summary</div>
+        <div class="card-body">
+            <canvas id="statusBarChart"></canvas>
+        </div>
+    </div>
+    </div>
+
+    <div id="profile" class="card mb-4" style="margin-left:5% ;margin-right: 5%;"></div>
+    <div class="card-header">My Profile</div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-hover">
+                    <tbody>
+                        <tr>
+                            <th>ID:</th>
+                            <td>PR00{{ professional.id }}</td> <!-- Dynamic customer ID -->
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{ professional.email }}</td> <!-- Dynamic email -->
+                        </tr>
+                        <tr>
+                            <th>Name:</th>
+                            <td>{{ professional.name }}</td> <!-- Dynamic name -->
+                        </tr>
+                        <tr>
+                            <th>Service Type:</th>
+                            <td>{{ professional.service_type_id }}</td> <!-- Dynamic service type -->
+
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td>{{ professional.address }}</td> <!-- Dynamic address -->
+                        </tr>
+                        <tr>
+                            <th>Pincode:</th>
+                            <td>{{ professional.pincode }}</td> <!-- Dynamic pincode -->
+                        </tr>
+                        <tr>
+                            <th>Your Statistics:</th>
+                            <td>
+                                <ul>
+                                    <li>Total Requests: {{ total_requests }}</li>
+                                    <li>Total Completed Requests: {{ completed_requests }}</li>
+                                    <li>Total Pending Requests: {{ pending_requests }}</li>
+                                    <li>Total Rejected Requests: {{rejected_requests }}</li>
+                                </ul>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <a href="/edit_profile/{{ user.id }}" class="btn btn-primary">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.0.7/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctxBar = document.getElementById('statusBarChart').getContext('2d');
+            var statusBarChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['Requested', 'Completed', 'Pending', 'Rejected'],
+                    datasets: [{
+                        label: 'Services',
+                        data: [
+                            {{ total_requests }},
+                    {{ completed_requests }},
+                            {{ pending_requests }},
+            {{ rejected_requests }}
+                        ],
+            backgroundColor: [
+            'blue',  // Blue for Requested
+            'skyblue',  // Green for Completed
+            'lightgreen',  // Yellow for Pending
+            'red' // Red for Rejected
+        ]
+                    }]
+                },
+            options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true
+        }
+            });
+        });
+    </script>
+    <footer class="mt-5 py-3 bg-light">
+        <div class="container text-center">
+            <p>&copy; 2024 Household Services by Satyam Saurabh. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

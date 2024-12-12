@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Create New Service{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Create New Service</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('create_service') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Service Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="price" name="price" step="0.01" min="1"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="time_required" class="form-label">Time Required (minutes)</label>
+                        <input type="number" class="form-control" id="time_required" name="time_required" min="1"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Create Service</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

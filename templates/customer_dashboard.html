@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&family=Lobster&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" {{ url_for('static', filename='style.css' ) }}>
+</head>
+<style>
+    .card-header {
+        background-color: bisque;
+        font-weight: bold;
+        font-size: larger;
+        color: rgb(33, 49, 126);
+    }
+
+    .service-category-card {
+        background-color: rgb(253, 231, 248);
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 18px;
+        margin-bottom: 20px;
+    }
+
+    body {
+        font-family: 'Libre Baskerville', serif;
+        font-size: small;
+        padding: 10px;
+    }
+
+    /* Remove underline from link */
+    .category-link {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .category-link:hover {
+        text-decoration: none;
+    }
+
+    .category-link:hover .service-category-card {
+        transform: scale(1.05);
+        background-color: rgb(204, 211, 247);
+    }
+
+    #chart-container {
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+        margin: 0 auto;
+        /* Centering the chart container */
+        position: relative;
+        /* Ensure proper positioning */
+    }
+
+    #serviceSummaryChart {
+        display: block;
+        /* Prevent stretching */
+        width: 100% !important;
+        /* Ensure full width */
+        height: 100% !important;
+        /* Ensure full height */
+    }
+</style>
+
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="margin-bottom : 10px ;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/customer_dashboard"
+                style="color: rgb(44, 44, 147); font-weight: bolder;">WELCOME, {{
+                current_user.name }}</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" style="font-weight: bolder;">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#profile">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#myservice">Bookings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#summary">Summary</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                </ul>
+
+                <form class="d-flex ms-auto" action="{{ url_for('search_services') }}" method="GET">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search Services"
+                        aria-label="Search" value="{{ query }}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Service Categories -->
+    <div class="card mb-4" style="margin-top: 55px;">
+        <div class="card-header">Available Service Categories</div>
+        <div class="card-body">
+            <div class="row">
+                {% for i in category %}
+                <!-- Wrap the entire category card in the anchor tag -->
+                <div class="col-md-4">
+                    <a href="#services" class="category-link">
+                        <div class="service-category-card">
+                            <div>
+                                <div class="category-id">Category ID: {{ i.id }}</div>
+                                <h5 style="color: chocolate;">{{ i.name }}</h5>
+                                <p>{{ i.description }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Service Types under Category -->
+    <div id="services" class="card mb-4">
+        <div class="card-header">Available Services for You</div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th>Service Type</th>
+                        <th> Service Category ID</th>
+                        <th>Professional ID</th>
+                        <th>Price/Hr</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service in services %}
+                    <tr>
+                        <td>{{ service.name }}</td>
+                        <td>S00{{ service.category_id }}</td>
+                        <td>PR00{{ service.professional_id }}</td>
+                        <td>₹{{ service.price }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('service_requests') }}">
+                                <input type="hidden" name="service_id" value="{{ service.id }}">
+                                <input type="hidden" name="customer_id" value="{{ service.customer_id }}">
+                                <input type="hidden" name="professional_id" value="{{ service.professional_id }}">
+
+                                <input type="hidden" name="service_name" value="{{ service.name }}">
+
+                                <button type="submit" class="btn btn-primary">Book</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4">No services available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- Service History Section -->
+    <div id="myservice" class="card mb-4">
+        <div class="card-header">Booking History</div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Date of Request</th>
+                        <th>Service Name </th>
+                        <th>Professional ID</th>
+                        <th>Status</th>
+                        <th style="padding-left: 50px; font-weight: bolder;">Action</th>
+                        <th>Rate Service</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in service_requests %}
+                    <tr>
+                        <td>RQ0{{ request.id }}</td>
+                        <td>{{ request.date_of_request.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ request.service_name }}</td>
+                        <td>PR00{{ request.professional_id }}</td>
+                        <td><b>{{ request.status }}</b></td>
+                        <td>
+                            <a href="/edit_service_request/{{ request.id }}" class="btn btn-warning">Edit</a>
+                            <a href="/delete_service_request/{{ request.id }}" class="btn btn-danger">Cancel</a>
+                        </td>
+                        <td>
+                            <a href="/rate_service/{{ request.id }}" class="btn btn-info">Review</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6">No service history available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Review Section -->
+    <div class="card mb-4">
+        <div class="card-header">Reviews History</div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover">
+                <thead class="table-info">
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Customer ID</th>
+                        <th>Rating</th>
+                        <th style="padding-left: 0%;">Comments</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for review in reviews %}
+                    <tr>
+                        <td>RQ0{{ review.service_request_id }}</td>
+                        <td>C00{{ review.customer_id }}</td>
+                        <td>{{ review.rating }}/5</td>
+                        <td>{{ review.comment }}</td>
+                        <td>{{ review.date_created.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Summary Section -->
+    <div id="summary" class="card mb-4" style="width: 60%; margin-left:21% ;">
+        <div class="card-header">Summary</div>
+        <div class="card-body">
+            <canvas id="serviceSummaryChart"></canvas>
+        </div>
+    </div>
+    </div>
+
+    <!-- Profile Section -->
+    <div id="profile" class="card mb-4" style="margin-left:5% ;margin-right: 5%;">
+        <div class="card-header">My Profile</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>ID:</th>
+                                <td>C00{{ customer.id }}</td> <!-- Dynamic customer ID -->
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>{{ customer.email }}</td> <!-- Dynamic email -->
+                            </tr>
+                            <tr>
+                                <th>Name:</th>
+                                <td>{{ customer.name }}</td> <!-- Dynamic name -->
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>{{ customer.address }}</td> <!-- Dynamic address -->
+                            </tr>
+                            <tr>
+                                <th>Pincode:</th>
+                                <td>{{ customer.pincode }}</td> <!-- Dynamic pincode -->
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                    <a href="/edit_profile/{{ user.id }}" class="btn btn-primary">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Chart JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Chart JS configuration for service summary
+            var ctx = document.getElementById('serviceSummaryChart').getContext('2d');
+            var serviceSummaryChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Total Requests', 'Completed Requests', 'Pending Requests'],
+                    datasets: [{
+                        label: 'Service Requests Summary',
+                        data: [
+                            {{ total_requests }},
+                    {{ completed_requests }}, 
+                            {{ pending_requests }}
+                        ], // dynamically passed data
+            backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+            borderWidth: 1
+                    }]
+                },
+            options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+            });
+        });
+    </script>
+</body>
+
+</html>

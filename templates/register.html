@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="row justify-content-center" style="font-family: Libre Baskerville, serif; font-size: x-large;">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Register</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data">
+
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value="Customer">Customer</option>
+                            <option value="Professional">Professional</option>
+                        </select>
+                    </div>
+
+                    <!-- Common Fields for both Customer and Professional -->
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pincode" class="form-label">Pincode</label>
+                        <input type="text" class="form-control" id="pincode" name="pincode" required>
+                    </div>
+
+                    <!-- Professional-specific Fields -->
+                    <div id="professional-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="service_type_id" class="form-label">Service Type</label>
+                            <select class="form-select" id="service_type_id" name="service_type_id">
+                                <option value="Cleaning">Home Cleaning</option>
+                                <option value="Electricity">Electricity</option>
+                                <option value="Plumbing">Plumbing</option>
+                                <option value="Painting">Painting</option>
+                                <option value="Carpentry">Carpentry</option>
+                                <option value="Servicing">Product Servicing</option>
+                                <option value="Gardening">Gardening</option>
+                                <option value="Pest Control">Pest Control</option>
+                                <option value="Appliance Repair">Appliance Repair</option>
+                                <option value="Security">Security Services</option>
+                                <option value="House Repair">House Furnishing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="experience" class="form-label">Experience (years)</label>
+                            <input type="number" class="form-control" id="experience" name="experience">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="documents" class="form-label">Attach Documents</label>
+                            <input type="file" class="form-control" id="documents" name="documents">
+                        </div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('role').addEventListener('change', function () {
+        var professionalFields = document.getElementById('professional-fields');
+        if (this.value === 'Professional') {
+            professionalFields.style.display = 'block';
+        } else {
+            professionalFields.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

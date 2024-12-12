@@ -1,0 +1,38 @@
+{% block title %}Edit Service{% endblock %}
+
+{% block content %}
+<div class="form">
+    <form method="POST" action="/edit_service/{{ services.id }}">
+        <fieldset>
+            <legend style="text-align: center; color: #2414ff;"><b>Edit Service</b></legend>
+
+            <!-- Service Name Input -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Service Name</label>
+                <input type="text" id="name" value="{{ services.name }}" name="name" class="form-control"
+                    placeholder="Enter the service name" required>
+            </div>
+
+            <!-- Service Price Input -->
+            <div class="mb-3">
+                <label for="price" class="form-label">Base Price</label>
+                <input type="number" id="price" value="{{ services.price }}" name="price" class="form-control"
+                    placeholder="Enter the base price" step="0.01" min="1" required>
+            </div>
+
+
+            <!-- Service Description Input -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="3"
+                    placeholder="Enter service description" required>{{ services.description }}</textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Save</button>
+        </fieldset>
+    </form>
+</div>
+
+
+{% endblock %}

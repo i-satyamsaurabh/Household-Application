@@ -1,0 +1,42 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+    width: 100%;
+}
+
+/* Remove underline from link */
+.category-link {
+    text-decoration: none;
+    color: inherit;
+    /* Maintain the default color of text inside the card */
+}
+
+.category-link:hover {
+    text-decoration: none;
+}
+
+/* Optional: Add hover effect for better user experience */
+.category-link .service-category-card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.category-link:hover .service-category-card {
+    transform: scale(1.05);
+}
