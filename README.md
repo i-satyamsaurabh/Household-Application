@@ -1,5 +1,7 @@
 # Household Services Application
 
+![Homepage](static/images/home.png)
+
 ## Overview
 The Household Services Application is a multi-user platform designed to streamline household service management. It allows users to connect with service professionals, manage service requests, and provide efficient solutions for household needs. The application is developed as part of the **Modern Application Development I** course project, showcasing a robust, user-friendly, and scalable solution.
 
