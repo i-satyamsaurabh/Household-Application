@@ -118,33 +118,10 @@ The application follows a well-defined database schema. Below is the Entity-Rela
   - `ServiceType`
   - `ServiceRequest`
 
----
 
-## Contributing
-We welcome contributions to enhance the application. To contribute:
-1. Fork the repository.
-2. Create a new branch for your feature/bug fix.
-   ```bash
-   git checkout -b feature-name
-   ```
-3. Commit your changes and push to the branch.
-4. Create a Pull Request.
 
----
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-## Acknowledgments
-- **Mentor**: [Instructor Name] - Guidance and support.
-- **Resources**: [Flask Documentation](https://flask.palletsprojects.com/), [SQLAlchemy Documentation](https://docs.sqlalchemy.org/), [Bootstrap](https://getbootstrap.com/).
-
----
 
 ## Contact
 For queries or support, feel free to reach out:
-- **Email**: [your email]
-- **GitHub**: [yourusername]
+- **Email**: satyam2610saurabh@gmail.com
 
