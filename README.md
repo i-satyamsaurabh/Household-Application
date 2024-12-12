@@ -127,3 +127,8 @@ The application follows a well-defined database schema. Below is the Entity-Rela
 For queries or support, feel free to reach out:
 - **Email**: satyam2610saurabh@gmail.com
 
+![Customer Homepage](static/customer_home.png)
+![Customer Services](customer_dashbaord.png)
+![Professional Dashboard](professional_dashboard.png)
+![Admin Homepage](static/admin_dashboard.png)
+![Admin Summary](static/graph.png)
