@@ -9,6 +9,11 @@ The Household Services Application is a multi-user platform designed to streamli
 
 ![Customer Homepage](static/customer_home.png)
 ![Customer Services](customer_dashbaord.png)
+![Professional Dashboard](professional_dashbaord.png)
+![Admin Homepage](static/admin_dashbaord.png)
+![Admin Summary](static/graph.png)
+
+
 
 ### Core Functionalities
 1. **User Roles**
