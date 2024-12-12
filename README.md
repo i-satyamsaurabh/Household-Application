@@ -6,15 +6,6 @@
 The Household Services Application is a multi-user platform designed to streamline household service management. It allows users to connect with service professionals, manage service requests, and provide efficient solutions for household needs. The application is developed as part of the **Modern Application Development I** course project, showcasing a robust, user-friendly, and scalable solution.
 
 ## Features
-
-![Customer Homepage](static/customer_home.png)
-![Customer Services](customer_dashbaord.png)
-![Professional Dashboard](professional_dashboard.png)
-![Admin Homepage](static/admin_dashboard.png)
-![Admin Summary](static/graph.png)
-
-
-
 ### Core Functionalities
 1. **User Roles**
    - **Admin**: Manages service categories, service types, professionals, and overall platform operations.
