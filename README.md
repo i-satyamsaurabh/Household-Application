@@ -109,7 +109,7 @@ Household-Services-App/
 
 ## ER Diagram
 The application follows a well-defined database schema. Below is the Entity-Relationship Diagram (ERD) generated using ERAlchemy:
-
+![ER Diagram](erd.png)
 - **Entities**:
   - `User`
   - `Customer`
