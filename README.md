@@ -1,134 +1,123 @@
-# Household Services Application
+# HOUSEHOLD-APPLICATION
 
-![Homepage](static/home.png)
+*Household Services Application is a web-based platform designed to streamline the interaction between service providers and customers. It features role-based access for Admins, Service Professionals, and Customers, enabling efficient service management, service request handling, and dynamic search functionality. *
+
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
+Built with the tools and technologies:
+
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+
+---
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [Features](#features)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
 
 ## Overview
-The Household Services Application is a multi-user platform designed to streamline household service management. It allows users to connect with service professionals, manage service requests, and provide efficient solutions for household needs. The application is developed as part of the **Modern Application Development I** course project, showcasing a robust, user-friendly, and scalable solution.
 
-## Features
-### Core Functionalities
-1. **User Roles**
-   - **Admin**: Manages service categories, service types, professionals, and overall platform operations.
-   - **Service Professional**: Manages service availability, responds to service requests, and maintains their profile.
-   - **Customer**: Browses services, creates service requests, and tracks service history.
+Household Services Application is a web-based platform designed to streamline the interaction between service providers and customers. It features role-based access for Admins, Service Professionals, and Customers, enabling efficient service management, service request handling, and dynamic search functionality. 
 
-2. **Authentication and Authorization**
-   - Secure login and role-based access.
-   - User registration for Customers and Professionals.
+This project demonstrates modern development practices and provides a solid foundation for Python applications and data science projects.
 
-3. **Service Management**
-   - Admin can create and manage service categories and types.
-   - Professionals can list their services with descriptions and availability.
+### Why Household-Application?
 
-4. **Service Requests**
-   - Customers can create and track service requests.
-   - Professionals can accept/reject and update the status of service requests.
+This project empowers developers to rapidly develop and deploy solutions with a solid backend foundation. The core features include:
 
-5. **Search Functionality**
-   - Dynamic search for Customers, Professionals, Services, and Service Requests.
-
-### Additional Features
-- **Dashboard Summaries**
-  - Admin dashboard with statistical summaries (pie charts, bar graphs).
-  - Professional and Customer dashboards for personalized information.
-- **Validation**
-  - Frontend and Backend validation to ensure data integrity.
-- **Responsive Design**
-  - A user-friendly interface with Bootstrap styling.
-- **APIs**
-  - Optional RESTful API resources for integration and scalability.
+🔧 **Easy Setup**: Streamlined installation and configuration process
+⚡ **Modern Architecture**: Built with current best practices and patterns
+🛡️ **Secure**: Implements security best practices
+📱 **Responsive**: Works seamlessly across different platforms
+🚀 **Performance Optimized**: Fast and efficient execution
 
 ---
 
-## Technology Stack
-- **Frontend**: HTML, CSS, Bootstrap, Jinja2
-- **Backend**: Flask (Python)
-- **Database**: SQLite with SQLAlchemy ORM
-- **Visualization**: Charts.js for graphical summaries
-- **Tools**: ERAlchemy for ERD generation
+## Getting Started
 
----
-
-## Setup and Installation
 ### Prerequisites
-- Python 3.9 or higher
-- pip (Python package manager)
 
-### Installation Steps
-1. **Clone the Repository**
+This project requires the following dependencies:
+
+- **Programming Language:** Python 3.7+
+- **Package Manager:** pip
+
+### Installation
+
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/household-services-app.git
-   cd household-services-app
+   git clone https://github.com/i-satyamsaurabh/Household-Application.git
    ```
 
-2. **Create a Virtual Environment**
+2. **Navigate to the project directory:**
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   cd Household-Application
    ```
 
-3. **Install Dependencies**
+3. **Install the dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Set Up the Database**
-   ```bash
-   flask db init
-   flask db migrate -m "Initial migration."
-   flask db upgrade
-   ```
+### Usage
 
-5. **Run the Application**
-   ```bash
-   flask run
-   ```
-   Access the application at `http://127.0.0.1:5000`
+To run the application:
 
----
-
-## Directory Structure
+```bash
+python main.py
 ```
-Household-Services-App/
-├── code/
-│   ├── app.py               # Main application
-│   ├── models.py            # Database models
-│   ├── routes/
-│   │   ├── admin.py         # Admin-specific routes
-│   │   ├── professional.py  # Professional-specific routes
-│   │   └── customer.py      # Customer-specific routes
-│   ├── templates/           # HTML templates
-│   ├── static/
-│       ├── css/             # Custom stylesheets
-│       ├── js/              # JavaScript files
-│       └── images/          # Application images
-├── migrations/              # Database migrations
-├── requirements.txt         # Required Python packages
-└── README.md                # Project documentation
+
+For development:
+```bash
+python -m src.main
 ```
 
 ---
 
-## ER Diagram
-The application follows a well-defined database schema. Below is the Entity-Relationship Diagram (ERD) generated using ERAlchemy:
-![ER Diagram](erd.png)
-- **Entities**:
-  - `User`
-  - `Customer`
-  - `Professional`
-  - `ServiceCategory`
-  - `ServiceType`
-  - `ServiceRequest`
+## Features
 
+- ✨ Modern and clean codebase
+- 📦 Easy to install and configure
+- 🔄 Regular updates and maintenance
+- 📖 Comprehensive documentation
+- 🤝 Community-driven development
 
+---
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
 
 ## Contact
-For queries or support, feel free to reach out:
-- **Email**: satyam2610saurabh@gmail.com
 
-![Customer Homepage](static/customer_home.png)
-![Customer Services](customer_dashbaord.png)
-![Professional Dashboard](professional_dashboard.png)
-![Admin Homepage](static/admin_dashboard.png)
-![Admin Summary](static/graph.png)
+**i-satyamsaurabh** - [@i-satyamsaurabh](https://github.com/i-satyamsaurabh)
+
+Project Link: [https://github.com/i-satyamsaurabh/Household-Application](https://github.com/i-satyamsaurabh/Household-Application)
+
+---
+
+<div align="center">
+Made with ❤️ by i-satyamsaurabh
+</div>
