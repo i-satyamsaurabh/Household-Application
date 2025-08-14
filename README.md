@@ -358,7 +358,6 @@ household-services-app/
     └── layout.html         # Base template
 
 
----
 
 ---
 
