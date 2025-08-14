@@ -363,7 +363,7 @@ household-services-app/
 
 ## 🙏 Acknowledgments
 
-This project was developed as part of the **Modern Application Development I (MAD1)** course at the **Indian Institute of Technology, Madras**.  
+This project was developed as part of the Modern Application Development I (MAD1) course at the Indian Institute of Technology, Madras.  
 Special thanks to the instructors and mentors for their invaluable guidance and continuous support throughout the project.
 
 ---
