@@ -1,183 +1,169 @@
-<a name="top"></a>
+# Household Services Hub 🏠
 
-<div align="center">
+A robust, multi-user web application built with Flask that connects customers with skilled service professionals. This platform provides a seamless experience for managing, finding, and requesting various household services.
 
-🌐 
-
-# Household Application
-
-*Household Services Application is a web-based platform designed to streamline the interaction between service providers and customers. It features role-based access for Admins, Service Professionals, and Customers, enabling efficient service management, service request handling, and dynamic search functionality. *
-
-<p align="center">
-  <img src="https://img.shields.io/github/stars/i-satyamsaurabh/Household-Application?style=for-the-badge&logo=github&color=gold" alt="Stars"/>
-  <img src="https://img.shields.io/github/forks/i-satyamsaurabh/Household-Application?style=for-the-badge&logo=github&color=blue" alt="Forks"/>
-  <img src="https://img.shields.io/github/issues/i-satyamsaurabh/Household-Application?style=for-the-badge&logo=github&color=red" alt="Issues"/>
-  <img src="https://img.shields.io/github/license/i-satyamsaurabh/Household-Application?style=for-the-badge&color=green" alt="License"/>
-</p>
-
-<p align="center">![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue) ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)</p>
-
-</div>
+![Python](https://img.shields.io/badge/python-3.x-blue.svg) ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=flat&logo=flask&logoColor=white) ![Bootstrap](https://img.shields.io/badge/bootstrap-5-purple.svg?style=flat&logo=bootstrap&logoColor=white) ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=flat&logo=sqlite&logoColor=white) ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 ---
 
-## 🌟 Overview
+## 📋 Table of Contents
 
-Welcome to **Household-Application** - a cutting-edge web application that delivers exceptional user experiences through modern web technologies. This project showcases responsive design, optimal performance, and scalable architecture.
+- [Project Overview](#-project-overview)
+- [Live Demo](#-live-demo)
+- [Screenshots](#-screenshots)
+- [Core Features](#-core-features)
+- [Tech Stack](#-tech-stack)
+- [System Architecture](#-system-architecture)
+- [Getting Started](#-getting-started)
+- [Usage](#-usage)
+- [Project Structure](#-project-structure)
+- [Acknowledgments](#-acknowledgments)
+- [License](#-license)
 
-### ✨ What Makes It Special
+---
 
-- 🚀 **Lightning Fast**: Optimized for performance and quick load times
-- 📱 **Responsive Design**: Seamlessly adapts to all device sizes
-- 🎨 **Modern UI/UX**: Clean, intuitive interface with smooth interactions
-- 🔒 **Secure**: Implements security best practices and data protection
+## 🌟 Project Overview
 
-## ✨ Features
+**Household Services Hub** is a full-stack web application designed to bridge the gap between customers seeking household help and professionals offering their services. Built as a part of the **Modern Application Development I (MAD1)** course at IIT, Madras, this project demonstrates a comprehensive understanding of database modeling, back-end development, and front-end design. The application supports three distinct user roles—**Admin**, **Professional**, and **Customer**—each with a dedicated dashboard and functionalities tailored to their needs.
 
-⚡ **Comprehensive Documentation** - Enhanced functionality and performance
-🏗️ **Solid Architecture** - Well-organized and scalable code structure
-🧪 **Quality Assurance** - Comprehensive testing and validation
-📖 **Documentation** - Clear guides and API references
-🔧 **Easy Setup** - Streamlined installation process
+---
 
-## 🚀 Quick Start
+## 🚀 Live Demo
+
+> **Note**: A live demo link is not available yet. You can run the project locally by following the instructions below.
+
+`[Link to your deployed application]`
+
+---
+
+## 📸 Screenshots
+
+A quick look at the application's interface.
+
+| **Admin Dashboard** | **Customer Service Search** |
+| :---------------------------------------------------- | :-------------------------------------------------------- |
+| `[Paste an image of your Admin Dashboard with charts]` | `[Paste an image of your Customer Service Search Page]`    |
+| **Professional's Profile** | **Service Request Tracking** |
+| `[Paste an image of a Professional's service page]`   | `[Paste an image of a Customer's service tracking status]` |
+
+---
+
+## ✨ Core Features
+
+The application is built with a feature-rich, role-based access control system.
+
+### 👑 Admin
+- **Secure Login:** Dedicated and secure admin login.
+- **Statistical Dashboard:** View platform analytics, including user registrations and service requests, visualized with pie and bar charts.
+- **Service Management:** Add, update, or remove service categories (e.g., "Cleaning," "Plumbing").
+- **Professional Vetting:** Approve or reject registrations from new service professionals.
+- **User Management:** Oversee all users on the platform.
+
+### 🛠️ Service Professional
+- **Registration & Profile:** Sign up and create a detailed profile specifying skills, experience, and services offered.
+- **Service Management:** Add personal service listings under predefined categories and set pricing.
+- **Request Handling:** View and respond to service requests from customers.
+- **Dashboard:** Track accepted jobs, earnings, and ratings.
+
+### 👤 Customer
+- **Easy Sign-up:** Quick and simple registration process.
+- **Dynamic Search:** Search for services with filters based on category, location, and professional ratings.
+- **Service Requests:** Send service requests directly to professionals.
+- **Real-Time Tracking:** Monitor the status of service requests (e.g., "Pending," "Accepted," "Completed").
+- **Profile Management:** Update personal information and view service history.
+
+---
+
+## ⚙️ Tech Stack
+
+This project leverages a modern, lightweight technology stack for efficient development and deployment.
+
+| Component           | Technology                               |
+| :------------------ | :--------------------------------------- |
+| **Backend Framework** | Flask                                    |
+| **Database** | SQLite                                   |
+| **ORM** | Flask-SQLAlchemy                         |
+| **Templating Engine** | Jinja2                                   |
+| **Frontend** | HTML5, CSS3, Bootstrap 5                 |
+| **Database Design** | ERAlchemy                                |
+
+---
+
+## 🏗️ System Architecture
+
+The application follows a modular architecture inspired by the Model-View-Controller (MVC) pattern.
+
+-   **Model:** The data layer is managed by **SQLAlchemy**, defining the database schema for Users, Services, Requests, etc. The Entity-Relationship (ER) diagram was designed using **ERAlchemy**.
+-   **View:** The presentation layer is handled by **Jinja2 templates**, rendered with dynamic data from the backend. **Bootstrap** ensures a responsive UI that works across all devices.
+-   **Controller:** **Flask** acts as the controller, handling HTTP requests, processing business logic, interacting with the database, and rendering the appropriate templates.
+
+### Database Schema
+`[Paste an image of your ER Diagram]`
+*The ER diagram illustrates the relationships between Users, Roles, Services, and Requests.*
+
+---
+
+## 🚀 Getting Started
+
+To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
 
-Make sure you have the following installed:
+-   Python 3.8+
+-   PIP & Git
 
-- **Python 3.8+** - [Download here](https://python.org/downloads/)
-- **Git** - [Download here](https://git-scm.com/downloads)
+### Installation
 
-### Installation Steps
+1.  **Clone the repository:**
+    ```sh
+    git clone [https://github.com/your-username/household-services-app.git](https://github.com/your-username/household-services-app.git)
+    cd household-services-app
+    ```
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/i-satyamsaurabh/Household-Application.git
-   cd Household-Application
-   ```
+2.  **Create and activate a virtual environment:**
+    -   **Windows:**
+        ```sh
+        python -m venv venv
+        .\venv\Scripts\activate
+        ```
+    -   **macOS / Linux:**
+        ```sh
+        python3 -m venv venv
+        source venv/bin/activate
+        ```
 
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   # or create virtual environment
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
+3.  **Install the required packages:**
+    ```sh
+    pip install -r requirements.txt
+    ```
 
-3. **Run the application**
-   ```bash
-   python main.py
-   ```
+4.  **Initialize the database:**
+    *(Add instructions here if you have a custom CLI command, e.g., `flask init-db`)*
 
-## 🌐 Usage Guide
-
-### Development Mode
-
-```bash
-npm run dev
-# Open http://localhost:3000 in your browser
-```
-
-### Production Build
-
-```bash
-npm run build
-npm start
-```
-
-### Environment Variables
-
-```env
-PORT=3000
-NODE_ENV=production
-DATABASE_URL=your_database_url
-API_KEY=your_api_key
-```
-
-## 🤝 Contributing
-
-We love contributions! Here's how you can help make **Household-Application** even better:
-
-### 🌟 Ways to Contribute
-
-- 🐛 **Report Bugs** - Found a bug? [Open an issue](https://github.com/i-satyamsaurabh/Household-Application/issues)
-- 💡 **Suggest Features** - Have ideas? We'd love to hear them!
-- 📝 **Improve Documentation** - Help others understand the project better
-- 🔧 **Submit Code** - Fix bugs or add new features
-
-### 🚀 Getting Started
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Add tests** (if applicable)
-5. **Commit your changes**
-   ```bash
-   git commit -m "Add: amazing new feature"
-   ```
-6. **Push to the branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-7. **Open a Pull Request**
-
-### 📋 Development Guidelines
-
-- Follow the existing code style
-- Write clear commit messages
-- Add tests for new features
-- Update documentation as needed
-
-### 🧪 Running Tests
-
-```bash
-python -m pytest
-```
+5.  **Run the application:**
+    ```sh
+    flask run
+    ```
+    The application will be available at `http://127.0.0.1:5000`.
 
 ---
 
-<div align="center">
+## 👨‍💻 Usage
 
-## 📊 Project Stats
+Once the application is running, you can use the following dummy credentials to explore the different roles:
 
-<img src="https://github-readme-stats.vercel.app/api/pin/?username=i-satyamsaurabh&repo=Household-Application&theme=tokyonight&hide_border=true" alt="Repository Stats"/>
+-   **Admin:**
+    -   **Username:** `admin`
+    -   **Password:** `admin123`
+-   **Professional:**
+    -   **Username:** `pro_user`
+    -   **Password:** `pro123`
+-   **Customer:**
+    -   **Username:** `customer_user`
+    -   **Password:** `customer123`
 
-## 🌟 Show Your Support
-
-If this project helped you, please give it a ⭐!
-
-[![Star History Chart](https://api.star-history.com/svg?repos=i-satyamsaurabh/Household-Application&type=Date&theme=dark)](https://star-history.com/#i-satyamsaurabh/Household-Application&Date)
-
-## 📞 Connect With Me
-
-<p align="center">
-  <a href="https://github.com/i-satyamsaurabh">
-    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-  </a>
-  <a href="https://linkedin.com/in/i-satyamsaurabh">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
-  </a>
-  <a href="https://twitter.com/i-satyamsaurabh">
-    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter"/>
-  </a>
-</p>
-
-## 📝 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+Feel free to register new accounts to test the full workflow.
 
 ---
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Made%20with-❤️-red?style=for-the-badge" alt="Made with love"/>
-  <img src="https://img.shields.io/badge/Powered%20by-☕-brown?style=for-the-badge" alt="Powered by coffee"/>
-</p>
-
-**[⬆ Back to Top](#top)**
-
-</div>
+## 📁 Project Structure
